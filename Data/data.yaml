@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 5
+names: ['Bien_do', 'Bien_ngoaigiao', 'Bien_trang', 'Bien_vang', 'Bien_xanh']
+
+roboflow:
+  workspace: uit-5rhkt
+  project: biensoxe-7geys
+  version: 10
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/uit-5rhkt/biensoxe-7geys/dataset/10
