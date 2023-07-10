@@ -2,6 +2,7 @@
 from pathlib import Path
 import PIL
 import numpy as np
+from PIL import Image
 
 # External packages
 import streamlit as st
@@ -59,7 +60,6 @@ source_img = None
 if source_radio == settings.IMAGE:
     source_img = st.sidebar.file_uploader(
         "Choose an image...", type=("jpg", "jpeg", "png", 'bmp', 'webp'))
-
     col1, col2 = st.columns(2)
 
     with col1:
@@ -105,24 +105,38 @@ if source_radio == settings.IMAGE:
                                 ymin = float(values[1].strip())
                                 xmax = float(values[2].strip())
                                 ymax = float(values[3].strip())
+                                image = Image.open(source_img)
+                                image.save('upload_image.png')
+                                # ++st.write(xmin)
+                                file_anh = "upload_image.png"  # Đường dẫn đến hình ảnh cần vẽ
+                                file_output = "upload_image.png"  # Đường dẫn lưu hình ảnh đã vẽ
+                                segment.ve_hinh_chu_nhat_hinh_anh(file_anh, xmin, ymin, xmax, ymax, file_output) 
                                 # st.write(xmin, ymin,xmax,ymax)  
                         for box in boxes:
                             st.write(box.data)
-                        segment.crop_image(source_img, 'output.jpg',xmin, ymin,xmax,ymax)   
-                        plate_image_path = 'output.jpg'
-                        plate = cv2.imread(plate_image_path)
-                        char_list = segment.segment_characters(plate)
-                        
-                        text=segment.show_results(modeltext,char_list)
-                        segment.save(char_list)
-                        st.write(text)
+                        # segment.crop_image(source_img, 'output.jpg',xmin, ymin,xmax,ymax)   
+                        # plate_image_path = 'output.jpg'
+                        # plate = cv2.imread(plate_image_path)
+                        # char_list = segment.segment_characters(plate)
+                        st.image('upload_image.png', caption='Blur Image',
+                         use_column_width=True)
+                        with open("upload_image.png", "rb") as file:
+                            btn = st.download_button(
+                                label="Download image",
+                                data=file,
+                                file_name="regtangle.jpg",
+                                mime="image/png"
+          )
+                        # text=segment.show_results(modeltext,char_list)
+                        # segment.save(char_list)
+                        # st.write(text)s
                         
                         
                 except Exception as ex:
                     # st.write(ex)
                     st.write("No image is uploaded yet!")
-# elif source_radio == settings.VIDEO:
-#     helper.play_stored_video(confidence, model)
+elif source_radio == settings.VIDEO:
+    helper.play_stored_video(confidence, model)
 
 # elif source_radio == settings.WEBCAM:
 #     helper.play_webcam(confidence, model)
