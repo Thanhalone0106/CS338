@@ -27,8 +27,6 @@
       <tr>
        <th>Họ và Tên</th>
        <th>MSSV</th>
-       <th>Github</th>
-       <th>Email</th>
       </tr>
       <tr>
        <td>Trần Duy Thanh</td>
