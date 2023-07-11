@@ -4,7 +4,7 @@
    </a>
 </p>
 <h1 align="center">
-    CS114.N11.KHCL - Machine Learning
+    CS338.N21.KHCL - Nhận dạng
 </h1>
 
 <h2>
